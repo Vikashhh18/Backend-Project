@@ -1,7 +1,19 @@
 import dotenv from 'dotenv';
 import dbConnect from './db/index.js';
 dotenv.config({ path: "./.env" });
-dbConnect();
+dbConnect()
+.then(()=>{
+     
+    app.on("error",(err)=>{
+         console.log("ERROR",err);
+         throw err;
+    })
+
+    app.listen(process.env.PORT||8001,()=>{
+        console.log(`sever will started at ${process.env.PORT}`)
+    })
+})
+.catch((err)=>{console.log("mongo db connection error :",err)})
 
 
 
